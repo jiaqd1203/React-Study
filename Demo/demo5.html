@@ -12,21 +12,27 @@
 <body>
     <div id="example"></div>
     <script type="text/babel">
-       
-       var names = [a,b,c]
-           
-       ReactDOM.Render(
-            <div>{
-    
-       names.map(function(name){
-                return <div>hello,{name}</div>
-            })
-        }</div>,
-            document.getElementById('example')
+         class NotesList extends React.Component {
+        render() {
+          return (
+            <ol>
+              {
+                React.Children.map(this.props.children, function (child) {
+                  return <li>{child}</li>;
+                })
+              }
+            </ol>
+          );
+        }
+      }
 
-           )
-       
-       
+      ReactDOM.render(
+        <NotesList>
+          <span>hello</span>
+          <span>world</span>
+        </NotesList>,
+        document.getElementById('example')
+      );
     </script>
 </body>
 </html>
