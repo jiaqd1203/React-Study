@@ -7,33 +7,27 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    
-    <title>Document</title>
+    <script src="/Demo/prop-types.js"></script>
+    <title>PropTypes</title>
 </head>
 <body>
     <div id="example"></div>
     <script type="text/babel">
-         class NotesList extends React.Component {
-        render() {
-          return (
-            <ol>
-              {
-                React.Children.map(this.props.children, function (child) {
-                  return <li>{child}</li>;
-                })
-              }
-            </ol>
-          );
-        }
-      }
+        var data = 123;
 
-      ReactDOM.render(
-        <NotesList>
-          <span>hello</span>
-          <span>world</span>
-        </NotesList>,
-        document.getElementById('example')
-      );
+            class MyTitle extends React.Component {
+                static propTypes = {
+                    title: PropTypes.string.isRequired,
+                }
+                render() {
+                    return <h1> {this.props.title} </h1>;
+                }
+            }
+
+            ReactDOM.render(
+                <MyTitle title={data} />,
+                document.getElementById('example')
+            );
     </script>
 </body>
 </html>
