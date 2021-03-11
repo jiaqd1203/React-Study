@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>input 10 words test</title>
+</head>
+<body>
+    <!--首先有个state中心，setState负责更新这个state，
+        render负责在state里面取状态去渲染到html里面，
+        html里面提供了一些监听器，比如click，触发以后会调用setState
+        setState在修改state，如此循环的这么一个过程，这个也叫做单项数据流  -->
+    <input type="text" id="input">
+    <p id="error">no more than 10 words</p>
+    <script type="text/babel">
+        var input = document.getElementById('input')
+        var errorMsg = document.getElementById('error')
+        /*如果我不想显示错误信息可以这样
+        <button id="clearError">X</button>
+         document.getElementById('clearError').addEventListener('click',function(){
+            setState(
+                {
+                    error:false
+                }
+            )
+        })
+        点X按钮的时候就不显示错误信息了
+        */               
+        // 分别把两个不同的状态放在state里面
+        var state = {
+            value : "",
+            error : false
+        }
+
+        var setState = function(newState){
+            state = {
+                ...state,
+                ...newState
+            }
+            render()
+        }
+
+        var render = function(){
+            input.value = state.value
+            if(state.error){
+                errorMsg.style.display = 'block'
+            }else{
+                errorMsg.style.display = 'none'
+            }
+        }
+
+        var handleInput = function(value){
+            if(value.length < 10){
+                setState({
+                    value:value,
+                    error:false
+                })
+            }else{
+                setState({
+                    error:true
+                })
+            }
+        }
+
+        input.addEventListener('input',function(){
+            handleInput(this.value)
+        })
+        // 先渲染一次，解决页面一开始还没输入就有一行字的问题
+        render()
+                
+
+    </script>
+</body>
+</html>

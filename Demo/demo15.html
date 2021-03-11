@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>only js liked</title>
+    <!--更加接近React开发模式，没有html，纯js完成应用开发  -->
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        var root = document.getElementById('root')
+        var state = {
+            like : false
+        }
+        var setState = function(newState){
+            state = {
+                ...state,
+                ...newState
+            }
+            render()
+        }
+        var handleClick = function(){
+            setState(
+                {
+                    like : !state.like
+                }
+            )
+        }
+
+        var render = function(){
+            root.innerHTML = 
+            `
+                <button type="button" style="color:${state.like?"red":"black"};"
+                onclick="handleClick()"
+                >
+                    ${state.like ? "Liked":"Like"}                    
+                </button>                
+            `
+        }
+        // 都是为了一开始渲染页面的
+        render()
+    </script>
+</body>
+</html>

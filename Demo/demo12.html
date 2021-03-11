@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>like</title>
+</head>
+<body>
+    <button type="button" id="like">like</button>
+    <script>
+        /*render方法负责渲染html，html里提供了操作方法control
+        control监听器（click）调用setState方法，setState方法修改state
+        state渲染html
+        */ 
+        var btn = document.getElementById('like');        
+        // 1用state来标记这个按钮的状态，然后不断修改状态去渲染页面   
+        // 一进来like是false因为还没点按钮，我们要改变按钮状态
+        var state = {
+               like:false,
+               color:'red'
+        }
+        // 4用一个函数来修改状态使状态可控，接受一个新状态来改变旧状态
+        var setState = function(newState){
+            // state = newState是简单写法，但如果state有其他属性就不行了
+            state = {
+                // ...的意思是把结构提取出来（解构）
+                /* var a = {name: "xiaoming",age:20}
+                   var b = {age:30}
+                   var c = {...a,...b}
+                   ...a相当于把a的属性都复制粘贴出来了
+                   c   {name:"xiaoming",age:30} 
+                */
+                ...state,
+                ...newState
+            }
+            render()
+        }
+        // 2render方法渲染html，根据状态不同来渲染不同的结果
+        var render = function(){
+            if(state.like){
+            // 喜欢的状态，也就是点了按钮后的状态         
+            btn.innerHTML = 'liked';
+            btn.style.color = 'red'; 
+            }else{
+            //还没喜欢的状态
+            btn.innerHTML = 'like';
+            btn.style.color = 'black'; 
+            }
+        }
+        // 3监听，点击后改变状态,改变之后重新渲染html
+        btn.addEventListener('click',function(){
+            setState({
+                like : !state.like
+                // render()
+            })
+        })
+    </script>
+</body>
+</html>

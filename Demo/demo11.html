@@ -7,12 +7,22 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>Document</title>
+    <title>like</title>
 </head>
 <body>
-    <div id="example"></div>
+    <button type="button" id="like">like</button>
     <script type="text/babel">
-    
+        var btn = document.getElementById('like');
+        btn.addEventListener('click',function(){
+           if(like.innerHTML == 'liked'){
+               btn.innerHTML = 'like';
+               btn.style.color = 'black';
+           }else{
+               btn.innerHTML = 'liked';
+               btn.style.color = 'red';
+           }
+            
+        })
     </script>
 </body>
 </html>

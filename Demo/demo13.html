@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>input</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <script type="text/babel">
+        var input = document.getElementById('input');
+        // 表单的值就是它的状态state
+        var state ={
+            value:""
+        }
+        var setState = function(newState){
+            state = {
+                ...state,
+                ...newState
+            }
+            render()
+        }
+        var render = function(){
+            input.value = state.value
+        }
+
+        input.addEventListener('input',function(){
+            // 只能用setState
+            setState(
+                {
+                    value: this.value
+                }
+            )
+        })
+
+    </script>
+</body>
+</html>
