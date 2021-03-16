@@ -12,29 +12,13 @@
 <body>
     <div id="example"></div>
     <script type="text/babel">
-     
-     class NotesList extends React.Component {
-        render() {
-          return (
-            <ol>
-              {
-                React.Children.map(this.props.children, function (child) {
-                  return <li>{child}</li>;
-                })
-              }
-            </ol>
-          );
+     class App extends React.component{
+        state = {
+          character:[]
         }
-      }
-
-      ReactDOM.render(
-        <NotesList>
-            <h1>1</h1>
-          <span>hello</span>
-          <span>world</span>
-        </NotesList>,
-        document.getElementById('example')
-      );
+     }
+     
+     
 
     
     </script>
