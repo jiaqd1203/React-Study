@@ -60,13 +60,31 @@ class TodoList extends Component {
 			用map对list进行循环，回调函数接收俩参数，一个是具体的每项内容一个是每项下标
 			 */}
 				<ul>
-					{
+					{/* 3.5.1此处原理是当我分别输入内容(比如1，2)在input框，上面list数组里会多出1，2两项
+						这时候render进行页面渲染，第一次循环content{item}就是1，然后传给了子组件TodoItem
+						这个子组件用this.props.content接收，然后显示的就是1，第二次传2，这样页面就显示我输入的内容了
+						 */}
+					{						
 						this.state.list.map((item, index) => {
 							return(								
 							<div>
 							{/*以下意思是我把list中的item内容通过content属性
-							传给子组件，这样就把父组件内容传给了子组件，子组件(todoitem文件)就可以使用了*/}
-							<TodoItem content={item}/>
+							传给子组件，这样就把父组件内容传给了子组件，子组件(todoitem文件)就可以使用了
+							父组件通过标签上的属性形式content={item}向子组件传递内容，既可以传递数据也可以传递方法
+							子组件通过this.props.content来接收*/}
+							{/*3.5.3关于子组件如何调用父组件方法来修改父组件内容
+							父组件通过ItemDelete属性把自己的一个方法传给了子组件，子组件TodoItem
+							就可以在handleClick里用props调用父组件传过来的ItemDelete这个方法 
+							顺带着把index传过去 
+							 */}
+							<TodoItem 
+								content={item} 
+								index={index}
+								// 3.5.4自己随便起的方法名,这个地方加bind是因为，当子组件接收ItemDelete的时候
+								// 它相当于接收了handleItemDelete这个方法，然而子组件并没有这个方法，这个是父组件的方法
+								// 所以就会报错，我们要让他指向绑定给父组件								
+								ItemDelete={this.handleItemDelete.bind(this)}	
+								/>
 							{/* <li
 							// key值？？
 								key={index}
