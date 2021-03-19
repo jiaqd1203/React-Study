@@ -14,6 +14,8 @@
   <body>
     <!-- 如果网页ban掉了script，提醒用户应该打开（也可以删去） -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- 由于js文件只引入了root，所以这里的React只管root这里面的代码的渲染，
+      不管其他的，所以和其他框架不冲突 -->
     <div id="root"></div>
   
   </body>
