@@ -2,7 +2,8 @@
 // 也可以用ES6语法对它进行结构赋值
 
 import React,{Component} from 'react';
-
+// 我们脚手架工具里自带了这个包，所以可以直接引用
+import PropTypes from 'prop-types';
 class TodoItem extends Component{
     constructor(props){
         super(props);
@@ -14,14 +15,15 @@ class TodoItem extends Component{
         // 3.5.2此时我希望点击list内容就删除掉这一项，给子组件绑定一个handleClick方法
         // 页面上每一项是通过list数组渲染出来的，子组件如何调用父组件方法来修改父组件内容？
         // 父组件传递过来的内容子组件都是通过props来接收的
-        const {content} = this.props;
+        // 4.2我给加一个test
+        const {content , test} = this.props;
         return (
         // onClick={this.handleClick}如果这么写this对应的值会是undefined，我们可以用bind(this)
         // 但其实并不推荐，因为功能可以但是性能有损耗，我们这样写：加上一个constructor
         <div onClick={this.handleClick}>
         {/* {this.props.content} 可以等价替换给const {content} = this.props;
         {content}这两行*/}
-        {content}
+        {test} - {content}
         </div>)
     }
     handleClick(){
@@ -33,6 +35,25 @@ class TodoItem extends Component{
         // 同理这个this.props.deleteItem(this.props.index)也可以改成上面的形式
     }
 }
+// 对它的类型Types做校验Props，对content做校验，我们要求他的类型是字符串
+// 第二个必须函数，第三个必须number
+// 注意外面的prop是小写而里面的是大写
+// 后面还可以加isRequired代表必须像子组件传递
+// 我的TodoItem要求父组件传递一个test给子组件类型string而且还是必填
+// 假设我没传这个组件的时候，我给他一个默认值，也就是下面的defaultProps方法
+// 这个时候即使父组件没给子组件传递也没关系了
+
+TodoItem.propTypes = {
+    test: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    deleteItem: PropTypes.func,
+    index: PropTypes.number
+}
+// 默认属性
+TodoItem.defaultProps = {
+    test: 'hello world'
+}
+
 
 // 创建组件之后通过export把组件导出出去
 export default TodoItem;
