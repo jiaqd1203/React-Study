@@ -1,23 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+// 为了让方格记住他被点击，用Square组件的state（状态）存储当前值，并在单击方格时更改这个值
 class Square extends React.Component {
-  render() {
+  constructor(){
+    super();
+    this.state = {
+      value:null,
+    }
+  }
+  render() {    
     return (
+      // 每点击按钮的时候改变状态值为X
       <button
         className="square"
-        onClick={() => this.props.onClick()}
+        onClick={() => this.setState({value:'X'})}
       >
-        {this.props.value}
+      {/* 获取组件的状态值也就是上面刚改变的X */}
+        {this.state.value}
       </button>
     );
   }
   }
-  
   class Board extends React.Component {
     constructor(props) {
       super(props);
+      // 设置初始状态为9个空值数组，对应9个方格
       this.state = {
         squares: Array(9).fill(null),
       };
@@ -28,12 +36,11 @@ class Square extends React.Component {
       squares[i] = 'X';
       this.setState({squares: squares});
     }
-  
+    // 一个方法，读取squares数组
     renderSquare(i) {
       return (
         <Square
           value={this.state.squares[i]}
-          onClick={() => this.handleClick(i)}
         />
       );
     }
@@ -42,6 +49,7 @@ class Square extends React.Component {
       return (
         <div>
           <div className="status">{status}</div>
+          {/* 一个大棋盘九个格子 */}
           <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
