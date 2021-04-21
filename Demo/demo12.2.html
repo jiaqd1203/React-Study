@@ -1,3 +1,4 @@
+<!-- 新引入了一个state -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +13,10 @@
         /*render方法负责渲染html，html里提供了操作方法control
         control监听器（click）调用setState方法，setState方法修改state
         state渲染html
+        React通过state标志程序的状态然后通过修改状态来渲染页面
         */ 
         var btn = document.getElementById('like');        
-        // 1用state来标记这个按钮的状态，然后不断修改状态去渲染页面   
+        // 1用state来标记这个按钮的状态，然后不断修改状态去渲染render页面   
         // 一进来like是false因为还没点按钮，我们要改变按钮状态
         var state = {
                like:false,
@@ -23,6 +25,7 @@
         // 4用一个函数来修改状态使状态可控，接受一个新状态来改变旧状态
         var setState = function(newState){
             // state = newState是简单写法，但如果state有其他属性就不行了
+            // state = 把state重新赋值一个对象
             state = {
                 // ...的意思是把结构提取出来（解构）
                 /* var a = {name: "xiaoming",age:20}
@@ -50,6 +53,7 @@
         }
         // 3监听，点击后改变状态,改变之后重新渲染html
         btn.addEventListener('click',function(){
+            // 包装到setState里面
             setState({
                 like : !state.like
                 // render()

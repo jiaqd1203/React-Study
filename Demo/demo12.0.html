@@ -1,0 +1,36 @@
+<!-- 新引入了一个state -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>like</title>
+</head>
+<body>
+    <button type="button" id="like">like</button>
+    <script>
+        var btn = document.getElementById('like');        
+        // 设置一个state来表示按钮默认的状态
+        var state = {
+               like:false
+        }
+        // 根据状态status来渲染render页面不同的结果
+        var render = function(){
+            if(state.like){         
+            btn.innerHTML = 'liked';
+            btn.style.color = 'red'; 
+            }else{
+            btn.innerHTML = 'like';
+            btn.style.color = 'black'; 
+            }
+        }
+        // 点击的时候切换状态,然后根据现在的状态渲染应该有的结果 
+        btn.addEventListener('click',function(){        
+                state.like = !state.like
+                render()
+            })
+        
+    </script>
+</body>
+</html>

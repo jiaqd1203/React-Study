@@ -1,0 +1,46 @@
+<!-- 新引入了一个state -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>like</title>
+</head>
+<body>
+    <button type="button" id="like">like</button>
+    <script>
+        var btn = document.getElementById('like');        
+        // 设置一个state来表示按钮默认的状态
+        var state = {
+               like:false
+        }
+        // 
+        var setState = function(newState){
+            // state = newState是简单写法，但如果state有其他属性就不行了
+            // 比如state有个color:'red';我不想修改color只想修改like,
+            // 下面的setState把like改了以后color属性被删除了
+            state = newState;
+            render();
+        }
+        // 根据状态status来渲染render页面不同的结果
+        var render = function(){
+            if(state.like){         
+            btn.innerHTML = 'liked';
+            btn.style.color = 'red'; 
+            }else{
+            btn.innerHTML = 'like';
+            btn.style.color = 'black'; 
+            }
+        }
+        //  
+        btn.addEventListener('click',function(){        
+            //告诉浏览器和自己我们马上要修改状态了 
+            setState({
+                    like : !state.like
+                })
+            })
+        
+    </script>
+</body>
+</html>
