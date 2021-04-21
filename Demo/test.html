@@ -1,24 +1,33 @@
-<!-- 新引入了一个state -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>like</title>
+    <title>Model</title>
 </head>
-<body>
-    <button type="button" id="like">like</button>
+<body>   
     <script>
-
         var btn = document.getElementById('like');        
         var state = {
             like:false
         }
+        var setState = function(newState){
+            state = {
+                ...state,
+                ...newState
+            }
+            render()
+        }
+        var handleClick = function(){
+            setState({
+                like:!state.like
+            })
+        }
+        var render = function(){
 
+        }
         btn.addEventListener('click',function(){
-
-            state.like =!state.like
 
         })
         
