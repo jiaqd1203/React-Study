@@ -10,6 +10,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- ？？？ -->
     <!-- 对模式进行一种组件式的包装 -->
     <div id="root"></div>
     <script type="text/babel">
@@ -18,7 +19,11 @@
         意思就是把这个字符串填到html这个root的标签里来
         */
         var root = document.getElementById('root')
+        // React给我们提供了一个类叫做Component，里面就是React这个框架提供的一些函数
+        // 我们再写任何组件的时候需要用extends继承它才能够使用
         // Component提供继承，之后的button直接extends Component就直接继承过来了
+        // 因为之前每个组件都有个state方法，我们可以写到一个里面
+        // 下面的组件里的setState方法就都删掉了
         class Component{
             setState(newState){
                 this.state = {
