@@ -30,7 +30,7 @@
         })
         点X按钮的时候就不显示错误信息了
         */               
-        // 分别把两个不同的状态放在state里面
+        // 分别把两个不同的状态放在state里面，value对应input，error对应errorMsg
         var state = {
             value : "",
             error : false
@@ -43,7 +43,7 @@
             }
             render()
         }
-
+        //3 
         var render = function(){
             input.value = state.value
             if(state.error){
@@ -52,8 +52,9 @@
                 errorMsg.style.display = 'none'
             }
         }
-
+        // 2
         var handleInput = function(value){
+            // 如果大于10跳到else就不会更新到render里的state.value里了
             if(value.length < 10){
                 setState({
                     value:value,
@@ -65,14 +66,14 @@
                 })
             }
         }
-
+        // 1
         input.addEventListener('input',function(){
+            // handleInput创建一个方法处理这个input事件
+            // 当我们输入的时候把这个值传到handleInput方法里
             handleInput(this.value)
         })
-        // 先渲染一次，解决页面一开始还没输入就有一行字的问题
+        // 先渲染一次，解决页面一开始还没输入就有错误提醒的问题
         render()
-                
-
     </script>
 </body>
 </html>
