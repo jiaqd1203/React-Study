@@ -12,6 +12,7 @@
 <body>
     <input type="text" id="input">
     <script type="text/babel">
+    // 流程就是先var一个input，然后设置state，之后setstate，然后render，接着EventListener
         var input = document.getElementById('input');
         // 表单的值就是它的状态state
         var state ={
@@ -25,11 +26,12 @@
             render()
         }
         var render = function(){
+            // 我看到的不是我输入的内容而是来自state的内容
             input.value = state.value
         }
 
         input.addEventListener('input',function(){
-            // 只能用setState
+            // 只能调用setState方法
             setState(
                 {
                     value: this.value
