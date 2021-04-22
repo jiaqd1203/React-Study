@@ -7,6 +7,7 @@
     <title>Arrow function</title>
 </head>
 <body>
+    <!-- 这个拥有this的函数在哪个对象里调用，this就属于哪个对象 -->
     <script>
         var add = function(a,b){
             return a+b;
@@ -16,11 +17,11 @@
         }
 
         var square = function(a){
-            return a*a
+            return a*a;
         }
         
         var square =(a)=>{
-            return a*a
+            return a*a;
         }
         var square = a =>a*a
         
