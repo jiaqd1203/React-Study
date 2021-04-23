@@ -1,6 +1,10 @@
 // import React from 'react';class TodoItem extends React.Component可以这么写
 // 也可以用ES6语法对它进行结构赋值
-
+/*
+import {Component} from 'react';等价于下面两行
+import React from 'react'
+const Component = React.Component
+*/
 import React,{Component} from 'react';
 // 我们脚手架工具里自带了这个包，所以可以直接引用
 import PropTypes from 'prop-types';

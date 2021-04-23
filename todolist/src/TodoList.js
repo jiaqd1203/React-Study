@@ -4,11 +4,13 @@
 // inputValue: e.target.value把我输入的值变成inputValue
 // 那么inputValue一改变，我输入的值也就显示出来了
 // 在React中引入Component, Fragment
+// 因为Todolist是React组件，所以它必须引入Component这个基类来继承它才可以生成一个react组件
 import React, { Component, Fragment } from 'react';
 import './style.css'
-// 把TodoItem引入进来这样我们就可以使用这个组件了
+// 把TodoItem组件引入进来这样我们就可以使用这个组件了，在JSX中组件开头必须大写开头
+// 所以当看到大写开头的标签时，在JSX里一般就是个组件，小写字母开头就是html标签
 import TodoItem from './TodoItem';
-// 把自己导出外部才能引用
+// 把自己导出外部才能引用，见最底下的export default TodoList;
 class TodoList extends Component {
 	//js里面一个类就有一个constructor构造函数，这个构造函数最先被执行
 	constructor(props) {
