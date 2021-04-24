@@ -1,8 +1,8 @@
 // {}包裹js表达式
-// 运作原理首先render运行时渲染input显示this.state.inputValue对应的内容
-// 当我输入内容的时候onChange就会执行，e.target.value负责看到我输入了什么内容
+// 运作原理首先render运行时把input框里的内容渲染成this.state.inputValue对应的内容来显示
+// 当我输入内容的时候onChange就会执行，e.target.value负责看到并获取我输入了什么内容
 // inputValue: e.target.value把我输入的值变成inputValue
-// 那么inputValue一改变，我输入的值也就显示出来了
+// 那么inputValue一改变，页面上input的value属性的值就会改变,那么我输入的值也就显示出来了
 // 在React中引入Component, Fragment
 // 因为Todolist是React组件，所以它必须引入Component这个基类来继承它才可以生成一个react组件
 import React, { Component, Fragment } from 'react';
@@ -11,17 +11,20 @@ import './style.css'
 // 所以当看到大写开头的标签时，在JSX里一般就是个组件，小写字母开头就是html标签
 import TodoItem from './TodoItem';
 // 把自己导出外部才能引用，见最底下的export default TodoList;
+// 我这个TodoList组件继承了React的Component组件
 class TodoList extends Component {
 	//js里面一个类就有一个constructor构造函数，这个构造函数最先被执行
+	//constructor有一个固定的写法他会接收一个props的参数
 	constructor(props) {
+	//super指的是父类也就是COmponent那个类 
 		super(props);
-		// 这个组件的状态
+		// React定义数据我们需要定义在状态里面,下面这个就是组件的状态,state负责存储组件数据
 		this.state = {
 			// input框里内容都存在这里,我们打上hello以后React可以感知到数据变化
 			// 并且自动把数据映射到页面之上，这就是React的响应式特点
 			// 但是这样会直接写死，导致我们无法输入别的了，因为input内容是由inputValue决定的
 			inputValue: '',
-			// 数组每一项
+			// 数组来存储input框下面产生的列表中的每一项
 			list: []
 		}
 	}
@@ -44,8 +47,9 @@ class TodoList extends Component {
 						id="insertArea"
 						className='input'
 						value={this.state.inputValue}
+						//  this.handleInputChange这个方法绑定的时候this是undefined,bind改变this指向
 						//  事件绑定的时候需要bind(this)对函数的作用域进行变更
-						//	监听input框变动，在React里C大写   
+						//	监听input框变动，在React里onChange里的C需要大写   
 						//  bind() fn.bind(obj, args)方法的主要作用就是将函数绑定至某个对象，
 						//  bind() 方法会创建一个函数，函数体内this对象的值会被绑定到传入bind() 
 						//  函数的值当bind()的参数为空时，this指向全局对象比如windows
@@ -104,12 +108,12 @@ class TodoList extends Component {
 			</Fragment>
 		)
 	}
-	//   创建方法，接收(e)event对象
+	//   创建方法负责inputchange的内容，接收(e)event对象
 	// target对应input框对应的dom节点,它返回<input value="Hello">这个
 	handleInputChange(e) {
-		//   需要改数据项内容不能直接改，要用setState函数改变
+		//   需要改数据项内容不能直接改(不能this.state直接这样改)，要用setState函数改变
 		this.setState({
-			// 让input框数据变成e.target.value  
+			// 让input框数据变成e.target.value(这个打印的就是input框里的内容)  
 			inputValue: e.target.value
 		})
 	}
