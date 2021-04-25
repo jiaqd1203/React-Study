@@ -33,12 +33,13 @@ class TodoList extends Component {
 		return (
 			//render语法要求内部所有内容必须包含在一个相同的大的元素当中，最外面这个div必须要有,
 			// 但我们不想要，可以用Fragment来解决，这样就显示不出来最外层的div了
+			// JSX注释只在开发的时候有意义,不会展示在页面上,如果写单行注释需要跟两个花括号分行:{//}占3行
 			<Fragment>
 				<div>
 					{/* html里label作用是扩大点击区域，我点击'输入内容'四个字光标自动移到input框
 		for在React里也是造成歧义，我们要改成htmlFor,for 属性规定 label 与哪个表单元素绑定。
 	   */}
-					<label for="insertArea">输入内容</label>
+					<label htmlFor="insertArea">输入内容</label>
 					{/* 把input框对应的数据和状态（state）里的数据做一个绑定 
 	  input里的值由this.state.inputValue这个状态决定
 	  */}
@@ -69,6 +70,7 @@ class TodoList extends Component {
 					{/* 3.5.1此处原理是当我分别输入内容(比如1，2)在input框，上面list数组里会多出1，2两项
 						这时候render进行页面渲染，第一次循环content{item}就是1，然后传给了子组件TodoItem
 						这个子组件用this.props.content接收，然后显示的就是1，第二次传2，这样页面就显示我输入的内容了
+						key值是什么？ 
 						 */}
 					{						
 						this.state.list.map((item, index) => {
@@ -117,10 +119,11 @@ class TodoList extends Component {
 			inputValue: e.target.value
 		})
 	}
+	// 当用户点击按钮的时候
 	handleBtnClick() {
 		this.setState({
 			// ...展开运算符(把以前数组内容全部展开生成一个新的数组)
-			// 我要把list变成之前的list再加上this.state.inputValue
+			// 我要把list变成之前的list再加上最新输入的value值：this.state.inputValue
 			list: [...this.state.list, this.state.inputValue],
 			// 点击提交后清除input里的内容
 			inputValue: ''
@@ -133,7 +136,7 @@ class TodoList extends Component {
 		list.splice(index, 1);
 		this.setState({
 			// 操作完改变list变成当前的list变量的内容
-			// immutable,state不允许我们做任何改变，比如this.state.list.splice(index,1)就不行
+			// React有个叫immutable的概念：state不允许我们做任何改变，比如this.state.list.splice(index,1)就不行
 			// 我们要把list复制到新变量里再做操作
 			list: list
 		})
