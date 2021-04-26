@@ -1,3 +1,5 @@
+// 这个组件就是每次填完项目以后生成的各个列表项目
+// 以下是在React中定义组件的方式
 // import React from 'react';class TodoItem extends React.Component可以这么写
 // 也可以用ES6语法对它进行结构赋值
 /*
@@ -11,21 +13,26 @@ import PropTypes from 'prop-types';
 class TodoItem extends Component{
     constructor(props){
         super(props);
-        // 这就相当于我们把本应该下面的<div onClick={this.handleClick。bind(this)}>
-        // 放到了这里来做
+        // 这就相当于我们把本应该下面的<div onClick={this.handleClick.bind(this)}>
+        // 放到了这里来做，这个bindthis永远指向了todoItem（3.5.17分钟，不太懂）
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
         // 3.5.2此时我希望点击list内容就删除掉这一项，给子组件绑定一个handleClick方法
         // 页面上每一项是通过list数组渲染出来的，子组件如何调用父组件方法来修改父组件内容？
+        // 不允许子组件直接修改父组件，实际上子组件就是想调用父组件的handleItemDelete(index)方法
+        // 把对应的子组建的数据删除掉，那么只要我们把父组件这个方法传给子组件就可以了
+        // 父元素已经通过deleteItem这个属性把自己的方法传给了子组件，子组件在handleClick里
+		// 用this.props.deleteItem(this.props.index)调用就可以了
         // 父组件传递过来的内容子组件都是通过props来接收的
         // 4.2我给加一个test
         const {content , test} = this.props;
         return (
         // onClick={this.handleClick}如果这么写this对应的值会是undefined，我们可以用bind(this)
         // 但其实并不推荐，因为功能可以但是性能有损耗，我们这样写：加上一个constructor
+        // 点击的时候执行handleClick方法
         <div onClick={this.handleClick}>
-        {/* {this.props.content} 可以等价替换给const {content} = this.props;
+        {/* {this.props.content}（用来接收父组件的方式） 可以等价替换给const {content} = this.props;
         {content}这两行*/}
         {test} - {content}
         </div>)
@@ -59,5 +66,5 @@ TodoItem.defaultProps = {
 }
 
 
-// 创建组件之后通过export把组件导出出去
+// 创建组件之后通过export把组件导出出去，这样外部才可以使用这个组件
 export default TodoItem;
