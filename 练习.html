@@ -1,0 +1,42 @@
+class todolist extends Component{
+    constructor(props){
+        super(props)
+
+        this.state{
+            inputValue : '',
+            list:[];
+        }
+    }
+
+ 
+render() {
+		return (
+				<div>				
+					<label htmlFor="insertArea">输入内容</label>					
+					<input
+						id="insertArea"
+						className='input'
+						value={this.state.inputValue}						
+						onChange={this.handleInputChange.bind(this)}
+					/>					
+					<button onClick={this.handleBtnClick.bind(this)}>提交</button></div>				
+				<ul>					
+					{this.state.list.map((item, index) => {
+							return(								
+							<div>							
+							<TodoItem 
+								content={item} 
+								index={index}
+								deleteItem={this.handleItemDelete.bind(this)}	
+								/>							
+							</div>
+							)							
+						})
+					}
+				</ul>
+		)
+	}
+
+
+
+}

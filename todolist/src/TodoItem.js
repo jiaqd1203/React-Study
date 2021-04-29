@@ -1,4 +1,4 @@
-// 这个组件就是每次填完项目以后生成的各个列表项目
+// 这个组件就是每次填完项目以后生成的各个列表项目，这个相当于TodoList内部的一个小的组件，组件是树型结构
 // 以下是在React中定义组件的方式
 // import React from 'react';class TodoItem extends React.Component可以这么写
 // 也可以用ES6语法对它进行结构赋值
@@ -8,13 +8,13 @@ import React from 'react'
 const Component = React.Component
 */
 import React,{Component} from 'react';
-// 我们脚手架工具里自带了这个包，所以可以直接引用
+// 4.2我们脚手架工具里自带了这个包，所以可以直接引用，这个用来校验父元素传来的属性是不是正确的
 import PropTypes from 'prop-types';
 class TodoItem extends Component{
     constructor(props){
         super(props);
         // 这就相当于我们把本应该下面的<div onClick={this.handleClick.bind(this)}>
-        // 放到了这里来做，这个bindthis永远指向了todoItem（3.5.17分钟，不太懂）
+        // 放到了这里来做，这个bindthis永远指向了todoItem（3.5.17分钟，不太懂，20分也不太懂）
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
@@ -23,9 +23,12 @@ class TodoItem extends Component{
         // 不允许子组件直接修改父组件，实际上子组件就是想调用父组件的handleItemDelete(index)方法
         // 把对应的子组建的数据删除掉，那么只要我们把父组件这个方法传给子组件就可以了
         // 父元素已经通过deleteItem这个属性把自己的方法传给了子组件，子组件在handleClick里
-		// 用this.props.deleteItem(this.props.index)调用就可以了
+		// 用this.props.deleteItem(this.props.index)调用就可以了,这句代码的意思是
+        // 当子组件被点击时，调用父组件传过来的deleteItem方法，同时把父组件传递来的index以参数的形式传给这个方法
         // 父组件传递过来的内容子组件都是通过props来接收的
         // 4.2我给加一个test
+        // 4.2content是字符串，deleteItem函数，index数字类型
+        // 4.2这里面的test和下面出现的两次test可以先忽略
         const {content , test} = this.props;
         return (
         // onClick={this.handleClick}如果这么写this对应的值会是undefined，我们可以用bind(this)
@@ -60,7 +63,7 @@ TodoItem.propTypes = {
     deleteItem: PropTypes.func,
     index: PropTypes.number
 }
-// 默认属性
+// 4.2默认属性，如果父组件没有像子组件传递这个属性我可以自己定义这个属性
 TodoItem.defaultProps = {
     test: 'hello world'
 }

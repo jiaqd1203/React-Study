@@ -5,8 +5,9 @@
 // 那么inputValue一改变，页面上input的value属性的值就会改变,那么我输入的值也就显示出来了
 // 在React中引入Component, Fragment
 // 因为Todolist是React组件，所以它必须引入Component这个基类来继承它才可以生成一个react组件
+// 3.6代码优化
 import React, { Component, Fragment } from 'react';
-import './style.css'
+import './style.css';
 // 把TodoItem组件引入进来这样我们就可以使用这个组件了，在JSX中组件开头必须大写开头
 // 所以当看到大写开头的标签时，在JSX里一般就是个组件，小写字母开头就是html标签
 import TodoItem from './TodoItem';
@@ -16,9 +17,11 @@ class TodoList extends Component {
 	//js里面一个类就有一个constructor构造函数，这个构造函数最先被执行
 	//constructor有一个固定的写法他会接收一个props的参数
 	constructor(props) {
-	//super指的是父类也就是COmponent那个类 
+	//super指的是父类也就是Component那个类 
 		super(props);
 		// React定义数据我们需要定义在状态里面,下面这个就是组件的状态,state负责存储组件数据
+		// 4.3当组件的state或者props发生改变的时候，render函数就会重新执行，
+		// 当父组件的render函数被运行时，它的子组件的render都将被重新运行一次
 		this.state = {
 			// input框里内容都存在这里,我们打上hello以后React可以感知到数据变化
 			// 并且自动把数据映射到页面之上，这就是React的响应式特点
@@ -36,7 +39,8 @@ class TodoList extends Component {
 			// JSX注释只在开发的时候有意义,不会展示在页面上,如果写单行注释需要跟两个花括号分行:{//}占3行
 			<Fragment>
 				<div>
-					{/* html里label作用是扩大点击区域，我点击'输入内容'四个字光标自动移到input框
+					{/* html里label作用是扩大点击区域，对鼠标用户友好，我点击'输入内容'四个字光标自动移到input框
+					for的属性就是相关联的input的id属性，这两个要一起设置互相绑定
 		for在React里也是造成歧义，我们要改成htmlFor,for 属性规定 label 与哪个表单元素绑定。
 	   */}
 					<label htmlFor="insertArea">输入内容</label>
@@ -57,6 +61,7 @@ class TodoList extends Component {
 						//  有点像call和apply，可能就是修改this指向用的，参数是谁this就是谁
 						//  我们需要让handleInputChange的this指向Todolist组件，但是它一开始并没有
 						// 所以加上bind.(this)，括号里的this指向这个组件，我们用这方法改变this指向
+						// onChange监听事件，一旦输入框内容改变这个就执行
 						onChange={this.handleInputChange.bind(this)}
 					/>
 					{/* 在React里Click要大写 */}
@@ -70,7 +75,7 @@ class TodoList extends Component {
 					{/* 3.5.1此处原理是当我分别输入内容(比如输入1和2)在input框，上面list数组里会多出1和2两项
 						这时候render进行页面渲染，第一次循环content{item}就是1，然后传给了子组件TodoItem
 						这个子组件用this.props.content接收，然后显示的就是1，同理第二次传2，这样页面就显示我输入的内容了
-						父组件像子组件传递内容是通过属性传递，传递过去之后子组件通过this.prop.content来接收
+						父组件像子组件传递内容是通过属性传递，传递过去之后子组件通过this.props.content来接收
 						key值是什么？ 
 						 */}
 					{						
@@ -82,11 +87,14 @@ class TodoList extends Component {
 							{/*以下意思是我把list中的item内容通过content属性
 							传给TodoItem子组件，这样就把父组件内容传给了子组件，子组件(todoitem文件)就可以使用了
 							父组件通过标签上的属性形式content={item}向子组件传递内容，既可以传递数据也可以传递方法
-							子组件通过this.props.content来接收*/}
-							{/*3.5.3关于子组件如何调用父组件方法来修改父组件内容
+							子组件通过this.props.什么东西来接收
+							*/}
+							{/*3.5.3关于子组件如何调用父组件方法来修改父组件数据内容
 							父组件通过ItemDelete属性把自己的一个方法传给了子组件，子组件TodoItem
-							就可以在handleClick里用props调用父组件传过来的ItemDelete这个方法 
-							顺带着把index传过去 
+							就可以在handleClick里用this.props.什么什么来调用父组件传过来的ItemDelete这个方法 
+							顺带着把index传过去，调用父组件方法的时候一定记住父组件传递过来的函数的this指向要做一次bind绑定
+							子组件调用父组件方法并借助这个方法对父组件的数据进行改变，父组件list数据一旦被改变了
+							 它数组里的内容少了，页面自动就会把相关的dom进行删除，React自动感知到变化然后自动帮我们删除
 							 */}
 							 {/* 因为todoitem就是li的内容，所以我们把li给替换成todoitem组件 */}
 							<TodoItem 
@@ -120,7 +128,8 @@ class TodoList extends Component {
 	handleInputChange(e) {
 		//   需要改数据项内容不能直接改(不能this.state直接这样改)，要用setState函数改变
 		this.setState({
-			// 让input框数据变成e.target.value(这个打印的就是input框里的内容)  
+			// 让input框数据变成e.target.value(这个打印的就是input框里的内容)，target属性是获取触发事件对象的目标 
+			// e.target指向事件执行时鼠标所点击区域的那个元素
 			inputValue: e.target.value
 		})
 	}
