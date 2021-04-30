@@ -1,0 +1,94 @@
+虚拟DOM：
+1.state 数据
+2.JSX模板
+3.数据+模板 结合，生成真实的DOM来显示
+4.state发生改变
+5.数据+模板 结合，生成真实的DOM替换原始的DOM
+
+缺陷:
+第一次生成了一个完整的DOM片段
+第二次生成了一个完整的DOM片段
+第二次的DOM替换第一次的DOM，非常耗性能
+
+1.state 数据
+2.JSX模板
+3.数据+模板 结合，生成真实的DOM来显示
+4.state发生改变
+5.数据+模板 结合，生成真实的DOM并不直接替换原始的DOM
+6.新的DOM和原始的DOM做比对，找差异
+7.找出input框发生了变化
+8.只用新的DOM中的input元素，替换掉老的DOM中的input元素
+
+缺陷：
+性能的提升并不明显
+
+1.state 数据
+2.JSX模板
+3.数据+模板 结合，生成真实的DOM来显示
+<div id='abc'><span>hello world</span></div>
+4.生成虚拟DOM（虚拟DOM就是一个JS对象，用它来描述真实DOM）（损耗了性能）
+['div',{id:'abc'},['span',{},'hello world']]
+5.state发生变化
+6.数据+模板生成新的虚拟DOM（极大的提升了性能）
+['div',{id:'abc'},['span',{},'bye bye']]
+7.比较原始虚拟DOM和新的虚拟DOM的区别，找到区别是span中内容（极大的提升性能）
+8.直接操作DOM，改变span中的内容
+
+生命周期函数：
+指在某一时刻组件会自动调用执行的函数(比如说render，在数据发生变化的时刻组件会自动调用执行render)
+constructor也算是，它在组件一创建的时候调用，但我们不归类到这里
+
+对于一个React组件来说，它会经历一些过程：
+1.Initialization初始化 setup props and state
+2.Mounting挂载(挂载是指组件第一次被放到页面上的时候) 
+componentWillMount在组件即将被挂载到页面的时刻自动执行 
+-render 
+-componentDidMount组件被挂载到页面之后自动执行
+3.Updation(props和states两种发生变化)
+props：
+componentWillReceiveProps执行条件是当一个组件要从父组件接收参数，
+(只要父组件的render函数被执行了，子组件的这个生命周期函数就会被执行)
+换句话说，如果这个组件第一次存在于父组件中，不会执行
+如果这个组件之前已经存在于父组件中，才会执行
+-shouldComponentUpdate(?)组件被更新之前自动被执行(比如每次在Todolist里输入内容)可以设置true或者false，
+true的话就会一直执行，false就不会执行
+-componentWillUpdate组件被更新之前自动执行,但他在shouldComponent之后被执行，
+如果shouldComponentUpdate返回true它才执行，如果false就不会被执行了
+-render-componentDidUpdate
+states：shouldComponentUpdate-componentWillUpdate-render-componentDidUpdate
+4.Unmounting
+componentWillUnmount当这个组件即将被从页面中剔除的时候，会被执行
+
+
+
+render() {
+		return (
+				<div>				
+					<label htmlFor="insertArea">输入内容</label>					
+					<input
+						id="insertArea"
+						className='input'
+						value={this.state.inputValue}						
+						onChange={this.handleInputChange.bind(this)}
+					/>					
+					<button onClick={this.handleBtnClick.bind(this)}>提交</button></div>				
+				<ul>					
+					{this.state.list.map((item, index) => {
+							return(								
+							<div>							
+							<TodoItem 
+								content={item} 
+								index={index}
+								deleteItem={this.handleItemDelete.bind(this)}	
+								/>							
+							</div>
+							)							
+						})
+					}
+				</ul>
+		)
+	}
+
+
+
+}

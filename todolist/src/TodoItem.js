@@ -29,7 +29,7 @@ class TodoItem extends Component{
         // 4.2我给加一个test
         // 4.2content是字符串，deleteItem函数，index数字类型
         // 4.2这里面的test和下面出现的两次test可以先忽略
-        const {content , test} = this.props;
+        const {content} = this.props;
         return (
         // onClick={this.handleClick}如果这么写this对应的值会是undefined，我们可以用bind(this)
         // 但其实并不推荐，因为功能可以但是性能有损耗，我们这样写：加上一个constructor
@@ -37,7 +37,7 @@ class TodoItem extends Component{
         <div onClick={this.handleClick}>
         {/* {this.props.content}（用来接收父组件的方式） 可以等价替换给const {content} = this.props;
         {content}这两行*/}
-        {test} - {content}
+        {content}
         </div>)
     }
     handleClick(){
@@ -58,7 +58,7 @@ class TodoItem extends Component{
 // 这个时候即使父组件没给子组件传递也没关系了
 
 TodoItem.propTypes = {
-    test: PropTypes.string.isRequired,
+    // test: PropTypes.string.isRequired,
     content: PropTypes.string,
     deleteItem: PropTypes.func,
     index: PropTypes.number
