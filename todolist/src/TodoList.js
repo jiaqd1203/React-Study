@@ -156,5 +156,5 @@ class TodoList extends Component {
 		})
 	}
 }
-
+// 导出出去才可以使用
 export default TodoList;
