@@ -14,7 +14,7 @@ import TodoItem from './TodoItem';
 // 把自己导出外部才能引用，见最底下的export default TodoList;
 // 我这个TodoList组件继承了React的Component组件
 class TodoList extends Component {
-	//js里面一个类就有一个constructor构造函数，这个构造函数最先被执行
+	//js里面一个类就有一个constructor构造函数，constructor构造函数是最先被执行的一个函数，比其他的都先执行
 	//constructor有一个固定的写法他会接收一个props的参数
 	constructor(props) {
 	//super指的是父类也就是Component那个类 
@@ -45,7 +45,7 @@ class TodoList extends Component {
 	   */}
 					<label htmlFor="insertArea">输入内容</label>
 					{/* 把input框对应的数据和状态（state）里的数据做一个绑定 
-	  input里的值由this.state.inputValue这个状态决定
+	  input里的值由this.state.inputValue这个状态决定，{}是jsx语法
 	  */}
 					{/* 在React里class跟类名重合了，所以建议我们用className代替 */}
 					<input
@@ -107,8 +107,8 @@ class TodoList extends Component {
 								deleteItem={this.handleItemDelete.bind(this)}	
 								/>
 							{/* <li
-							// key值？？
-								key={index}
+							// key值？？做循环渲染的时候需要给每一项增加一个key值，每一项都不同，相当于一个标识符
+								key={index}用index做key值很不好，尽量不用
 								onClick={this.handleItemDelete.bind(this, index)}
 								// 我写<h1>a</h1>网页上也显示标签符号，我不想做转义
 								// 那么可以写成以下方式，内层就是个js对象
