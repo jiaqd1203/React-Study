@@ -84,7 +84,7 @@ class TodoList extends Component {
 							否则会报错，那我们在这里加一个div，此处这段注释也不能写在return和div之间，否则报错 */}
 							return(								
 							<div>
-							{/*以下意思是我把list中的item内容通过content属性
+							{/*以下content={item}意思是我把list中的item内容通过content属性
 							传给TodoItem子组件，这样就把父组件内容传给了子组件，子组件(todoitem文件)就可以使用了
 							父组件通过标签上的属性形式content={item}向子组件传递内容，既可以传递数据也可以传递方法
 							子组件通过this.props.什么东西来接收
@@ -106,7 +106,8 @@ class TodoList extends Component {
 								// 通过这个属性把自己的一个方法传给了子组件
 								deleteItem={this.handleItemDelete.bind(this)}	
 								/>
-							{/* <li
+							{/*我们在这不渲染li标签了改为渲染todoitem组件 
+							<li
 							// key值？？做循环渲染的时候需要给每一项增加一个key值，每一项都不同，相当于一个标识符
 								key={index}用index做key值很不好，尽量不用
 								onClick={this.handleItemDelete.bind(this, index)}

@@ -18,6 +18,7 @@ class TodoItem extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
     render(){
+        // 子组件可以{this.props.content来接收父组件传递过来的内容}
         // 3.5.2此时我希望点击list内容就删除掉这一项，给子组件绑定一个handleClick方法
         // 页面上每一项是通过list数组渲染出来的，子组件如何调用父组件方法来修改父组件内容？
         // 不允许子组件直接修改父组件，实际上子组件就是想调用父组件的handleItemDelete(index)方法
