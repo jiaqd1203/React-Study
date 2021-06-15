@@ -87,7 +87,7 @@ class TodoList extends Component {
 							{/*以下content={item}意思是我把list中的item内容通过content属性
 							传给TodoItem子组件，这样就把父组件内容传给了子组件，子组件(todoitem文件)就可以使用了
 							父组件通过标签上的属性形式content={item}向子组件传递内容，既可以传递数据也可以传递方法
-							子组件通过this.props.什么东西来接收
+							子组件通过this.props.什么东西来接收；jsx语法想用变量和表达式的时候一定要用花括号
 							*/}
 							{/*3.5.3关于子组件如何调用父组件方法来修改父组件数据内容
 							父组件通过ItemDelete属性把自己的一个方法传给了子组件，子组件TodoItem
