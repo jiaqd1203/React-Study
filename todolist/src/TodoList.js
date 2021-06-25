@@ -17,7 +17,7 @@ class TodoList extends Component {
 	//js里面一个类就有一个constructor构造函数，constructor构造函数是最先被执行的一个函数，比其他的都先执行
 	//constructor有一个固定的写法他会接收一个props的参数
 	constructor(props) {
-	//super指的是父类也就是Component那个类 
+	//super也要有，指的是父类也就是Component那个类 
 		super(props);
 		// React定义数据我们需要定义在状态里面,下面这个就是组件的状态,state负责存储组件数据
 		// 4.3当组件的state或者props发生改变的时候，render函数就会重新执行，

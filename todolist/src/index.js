@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import TodoList from './TodoList';
 // index.js是入口文件，进入以后我们知道我们渲染的只是todolist这一个组件
 // ReactDOM是一个第三方模块他有一个方法叫做render，这个方法可以帮助我们将一个组件挂载到某一个DOM节点上
-// 比如下面就是把Todolist挂载到了public的index.html的ID=root的DOM节点下
+// 比如下面就是把Todolist挂载到了public文件夹的index.html的ID=root的DOM节点下
 // 目前来看，页面所有内容都在todolist这一个组件当中
 ReactDOM.render(<TodoList />,document.getElementById('root'));
 
